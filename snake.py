@@ -78,6 +78,7 @@ while True:
     if L[0] == loc:
         L = eats_fruit(L)
         loc = spawn_fruit(L)
+        draw_fruit(L)
     if L[0] in L[1:]:
         pygame.quit()
 
@@ -86,3 +87,13 @@ while True:
 
     pygame.display.update()
 
+
+
+def draw_snake(L):
+    for i in range(len(L[0])):
+        pygame.draw.circle(screen, "blue", (L[0][i]*20-10,L[1][i]*20-10), 9.5)
+    return None
+
+def draw_fruit(L):
+    for i in range(len(L[0])):
+        pygame.draw.circle(screen, "red", (L[0][i]*20-10,L[1][i]*20-10), 9.5)
