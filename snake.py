@@ -12,18 +12,16 @@ pygame.init()
 screen = pygame.display.set_mode((400, 300))
 pygame.draw.rect(screen, red, (50, 100, 100, 50))
 
-pygame.init()
 
-screen = pygame.display.set_mode((400, 300))
+#pygame.init()
+
+#screen = pygame.display.set_mode((400, 300))
 
 
 """
 def affichage(L):
     if 
 """
-
-clock = pygame.time.Clock()
-
 
 class Fruit():
     def __init__(self, L):
@@ -52,27 +50,28 @@ class Snake():
         L = self.position
         n= len(self.position)
         T=self.position.copy()
-        T[0] = (self.position[0][0], self.position[0][1]+1)
-        for i in range(1,n):
-            T[i]=self.position[i-1]
-        self.position = T
-        draw_snake(self)
-
-    def goes_down(self):
-        L = self.position
-        n= len(self.position)
-        T=self.position.copy()
         T[0] = (self.position[0][0], self.position[0][1]-1)
         for i in range(1,n):
             T[i]=self.position[i-1]
         self.position = T
-        draw_snake(self)
+        self.draw_snake()
+        
+    def goes_down(self):
+        L = self.position
+        n= len(self.position)
+        T=self.position.copy()
+        T[0] = (self.position[0][0], self.position[0][1]+1)
+        for i in range(1,n):
+            T[i]=self.position[i-1]
+        self.position = T
+        self.draw_snake()
 
     def eats_fruit(self):
         X = (self.position[len(self.position)-2][0]-self.position[len(self.position)-1][0],self.position[len(self.position)-2][0]-self.position[len(self.position)-1][1])
         L = self.position
         L.append((self.position[len(self.position)-1][0]+X[0],self.position[len(self.position)-1][1]+X[1]))
         self.position = L
+        self.draw_snake()
 
     def goes_right(self):
         L = self.position
@@ -82,6 +81,7 @@ class Snake():
         for i in range(1,n):
             T[i]=L[i-1]
         self.position = T
+        self.draw_snake()
 
     def goes_left(self):
         L = self.position
@@ -91,17 +91,19 @@ class Snake():
         for i in range(1,n):
             T[i]=L[i-1]
         self.position = T
+        self.draw_snake()
 
-    def draw_snake(L):
-        for i in range(len(L)):
-            pygame.draw.circle(screen, "blue", (L[i][0]*20-10,L[i][1]*20-10), 9.5)
+    def draw_snake(self):
+        for i in range(len(self.position)):
+            pygame.draw.circle(screen, "blue", (self.position[i][0]*20-10,self.position[i][1]*20-10), 9.5)
 
     def refresh(self):
-        for i in range(L):
-            [L[i][0], L[i][1]] = [L[i][0]%20, L[i][1]%15]
+        for i in range(len(self.position)):
+            self.position[i] = [self.position[i][0]%20, self.position[i][1]%15]
 
 
 def game():
+    clock = pygame.time.Clock()
     L = Snake([[7, 10],[6, 10],[5, 10]])
     loc = Fruit([3,3])
     score = 0
@@ -127,13 +129,13 @@ def game():
             if last_input == pygame.K_RIGHT and last_move != pygame.K_LEFT:
                 L.goes_right()
             last_move = last_input
-            if L[0] == loc:
+            if L.position[0] == loc:
                 L.eats_fruit()
                 loc.spawn_fruit(L)
                 loc.draw_fruit()
                 score += 1
-            if L[0] in L[1:]:
+            if L.position[0] in L.position[1:]:
                 pygame.quit()
-            L.refresh()
-            L.draw_snake()
         pygame.display.update()
+
+game()
