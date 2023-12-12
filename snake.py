@@ -1,6 +1,5 @@
 import pygame
-<<<<<<< HEAD
-import random  
+import random as rd 
 
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -10,21 +9,19 @@ blue = (0, 0, 255)
 
 pygame.init()
 
-screen = pygame.display.set_mode( (400, 300) )
+screen = pygame.display.set_mode((400, 300))
 pygame.draw.rect(screen, red, (50, 100, 100, 50))
-=======
-import random as rd
 
 pygame.init()
 
 screen = pygame.display.set_mode((400, 300))
->>>>>>> b049be3c71cf92ff29acce8692edf15eee1bc1b4
 
 
 """
 def affichage(L):
     if 
 """
+
 clock = pygame.time.Clock()
 
 
@@ -122,21 +119,21 @@ def game():
             if last_input == pygame.K_ESCAPE:
                 pygame.quit()
             if last_input == pygame.K_UP and last_move != pygame.K_DOWN :
-                L = goes_up(L)
+                L.goes_up()
             if last_input == pygame.K_DOWN and last_move != pygame.K_UP:
-                L = goes_down(L)
+                L.goes_down()
             if last_input == pygame.K_LEFT and last_move != pygame.K_RIGHT:
-                L = goes_left(L)
+                L.goes_left()
             if last_input == pygame.K_RIGHT and last_move != pygame.K_LEFT:
-                L = goes_right(L)
+                L.goes_right()
             last_move = last_input
             if L[0] == loc:
-                L = eats_fruit(L)
-                loc = spawn_fruit(L)
-                draw_fruit(L)
+                L.eats_fruit()
+                loc.spawn_fruit(L)
+                loc.draw_fruit()
                 score += 1
             if L[0] in L[1:]:
                 pygame.quit()
             L.refresh()
-            draw_snake(L)
+            L.draw_snake()
         pygame.display.update()
