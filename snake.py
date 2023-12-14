@@ -16,15 +16,9 @@ screen = pygame.display.set_mode((400, 300))
 
 #screen = pygame.display.set_mode((400, 300))
 
-
-"""
-def affichage(L):
-    if 
-"""
-
 class Fruit():
-    def __init__(self, L):
-        self.position = L
+    def __init__(self, snake_position):
+        self.position = snake_position
 
     def draw_fruit(self):
         for i in range(len(self.position)):
@@ -42,22 +36,22 @@ class Fruit():
 
 
 class Snake():
-    def __init__(self, L):
-        self.position = L
+    def __init__(self, snake_position):
+        self.position = snake_position
 
     def goes_up(self):
-        L = self.position
-        n= len(self.position)
-        T=self.position.copy()
+        snake_position = self.position
+        lengh_snake = len(self.position)
+        T = self.position.copy()
         T[0] = (self.position[0][0], self.position[0][1]-1)
-        for i in range(1,n):
-            T[i]=self.position[i-1]
+        for i in range(1,lengh_snake):
+            T[i] = self.position[i-1]
         self.position = T
         self.draw_snake()
         
     def goes_down(self):
-        L = self.position
-        n= len(self.position)
+        snake_position = self.position
+        lengh_snake= len(self.position)
         T=self.position.copy()
         T[0] = (self.position[0][0], self.position[0][1]+1)
         for i in range(1,n):
@@ -88,7 +82,7 @@ class Snake():
         T=L.copy()
         T[0] = (L[0][0]-1, L[0][1])
         for i in range(1,n):
-            T[i]=L[i-1]
+            T[i] = L[i-1]
         self.position = T
         self.draw_snake()
 
