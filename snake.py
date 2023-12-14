@@ -113,7 +113,7 @@ def game():
 
     while True:
 
-        clock.tick(0.4)
+        clock.tick(10)
 
         for event in pygame.event.get():
             screen = pygame.display.set_mode((400, 300))
