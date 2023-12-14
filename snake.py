@@ -11,10 +11,48 @@ pygame.init()
 
 screen = pygame.display.set_mode((400, 300))
 
+import sys
 
-#pygame.init()
+width, height = 400, 300
+screen = pygame.display.set_mode((width, height))
+echiquier  = pygame.display.set_mode((width, height))
+case_size = 20
+pygame.display.set_caption('Dessin avec Pygame')
+# Paramètres de la fenêtre
 
-#screen = pygame.display.set_mode((400, 300))
+
+pygame.display.set_caption('Affichage d\'un Score avec Pygame')
+
+# Couleur
+black = (0, 0, 0)
+white = (255, 255, 255)
+
+# Score initial
+score = 0
+
+# Police
+font = pygame.font.Font(None, 36)
+
+# Couleurs
+black = (0, 0, 0)
+white = (255, 255, 255)
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+
+#échiquier
+echiquier.fill(white)
+
+for i in range(20):
+    for j in range(15):
+        color = white if (i + j) % 2 == 0 else black
+        pygame.draw.rect(echiquier, color, (i * case_size, j * case_size, case_size, case_size))
+
+    score_text = font.render("Score: {}".format(score), True, (255,20,147))
+    screen.blit(score_text, (10, 10))
+
+
+
 
 class Fruit():
     def __init__(self, fruit_position):
@@ -30,9 +68,9 @@ class Fruit():
         loc = [x,y]
         if not(loc in self.position):
             self.position = loc
-            draw_fruit()
+            self.draw_fruit()
         else:
-            spawn_fruit(self.position)
+            self.spawn_fruit(self.position)
 
 
 class Snake():
@@ -60,7 +98,7 @@ class Snake():
         self.draw_snake()
 
     def eats_fruit(self):
-        elongation = (self.position[len(self.position) - 2][0] - self.position[len(self.position) - 1][0],self.position[len(self.position) - 2][0] - self.position[len(self.position) - 1][1])
+        elongation = (self.position[len(self.position) - 2][0] - self.position[len(self.position) - 1][0],self.position[len(self.position) - 2][1] - self.position[len(self.position) - 1][1])
         snake_position = self.position
         snake_position.append((self.position[len(self.position) - 1][0] + elongation[0],self.position[len(self.position) - 1][1] + elongation[1]))
         self.position = snake_position
