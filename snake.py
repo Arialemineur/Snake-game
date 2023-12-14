@@ -109,10 +109,11 @@ def game():
     last_input = pygame.K_RIGHT
     last_move = pygame.K_RIGHT
     pygame.display.update()
+    loc.draw_fruit()
 
     while True:
 
-        clock.tick(0.2)
+        clock.tick(0.4)
 
         for event in pygame.event.get():
             screen = pygame.display.set_mode((400, 300))
