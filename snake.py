@@ -22,7 +22,7 @@ class Fruit():
 
     def draw_fruit(self):
         for i in range(len(self.position)):
-            pygame.draw.circle(screen, "red", (self.position[0]*20-10,self.position[1]*20-10), 9.5)
+            pygame.draw.circle(screen, "red", (self.position[0] * 20 - 10,self.position[1] * 20 - 10), 9.5)
 
     def spawn_fruit(self):
         x= rd.randint(0,20)
@@ -42,57 +42,57 @@ class Snake():
     def goes_up(self):
         snake_position = self.position
         lengh_snake = len(self.position)
-        T = self.position.copy()
-        T[0] = (self.position[0][0], self.position[0][1]-1)
+        new_positions = self.position.copy()
+        new_positions[0] = (self.position[0][0], self.position[0][1] - 1)
         for i in range(1,lengh_snake):
-            T[i] = self.position[i-1]
-        self.position = T
+            new_positions[i] = self.position[i - 1]
+        self.position = new_positions
         self.draw_snake()
         
     def goes_down(self):
         snake_position = self.position
-        lengh_snake= len(self.position)
-        T=self.position.copy()
-        T[0] = (self.position[0][0], self.position[0][1]+1)
-        for i in range(1,n):
-            T[i]=self.position[i-1]
-        self.position = T
+        lengh_snake = len(self.position)
+        new_positions = self.position.copy()
+        new_positions[0] = (self.position[0][0], self.position[0][1] + 1)
+        for i in range(1,lengh_snake):
+            new_positions[i] = self.position[i - 1]
+        self.position = new_positions
         self.draw_snake()
 
     def eats_fruit(self):
-        X = (self.position[len(self.position)-2][0]-self.position[len(self.position)-1][0],self.position[len(self.position)-2][0]-self.position[len(self.position)-1][1])
+        elongation = (self.position[len(self.position) - 2][0] - self.position[len(self.position) - 1][0],self.position[len(self.position) - 2][0] - self.position[len(self.position) - 1][1])
         snake_position = self.position
-        snake_position.append((self.position[len(self.position)-1][0]+X[0],self.position[len(self.position)-1][1]+X[1]))
-        self.position = L
+        snake_position.append((self.position[len(self.position) - 1][0] + elongation[0],self.position[len(self.position) - 1][1] + elongation[1]))
+        self.position = snake_position
         self.draw_snake()
 
     def goes_right(self):
         snake_position = self.position
         lengh_snake = len(snake_position)
-        T = snake_position.copy()
-        T[0] = (snake_position[0][0]+1, snake_position[0][1])
+        new_positions = snake_position.copy()
+        new_positions[0] = (snake_position[0][0] + 1, snake_position[0][1])
         for i in range(1,lengh_snake):
-            T[i]=snake_position[i-1]
-        self.position = T
+            new_positions[i] = snake_position[i - 1]
+        self.position = new_positions
         self.draw_snake()
 
     def goes_left(self):
         snake_position = self.position
         lengh_snake = len(snake_position)
-        T = snake_position.copy()
-        T[0] = (snake_position[0][0]-1, snake_position[0][1])
+        new_positions = snake_position.copy()
+        new_positions[0] = (snake_position[0][0] - 1, snake_position[0][1])
         for i in range(1,lengh_snake):
-            T[i] = snake_position[i-1]
-        self.position = T
+            new_positions[i] = snake_position[i - 1]
+        self.position = new_positions
         self.draw_snake()
 
     def draw_snake(self):
         for i in range(len(self.position)):
-            pygame.draw.circle(screen, "blue", (self.position[i][0]*20-10,self.position[i][1]*20-10), 9.5)
+            pygame.draw.circle(screen, "blue", (self.position[i][0] * 20 - 10,self.position[i][1] * 20 - 10), 9.5)
 
     def refresh(self):
         for i in range(len(self.position)):
-            self.position[i] = [self.position[i][0]%20, self.position[i][1]%15]
+            self.position[i] = [self.position[i][0] % 20, self.position[i][1] % 15]
 
 
 def game():
@@ -126,7 +126,7 @@ def game():
             last_move = last_input
             if snake_position.position[0] == loc:
                 snake_position.eats_fruit()
-                loc.spawn_fruit(L)
+                loc.spawn_fruit(snake_position)
                 loc.draw_fruit()
                 score += 1
             if snake_position.position[0] in snake_position.position[1:]:
