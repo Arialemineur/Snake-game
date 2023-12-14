@@ -17,8 +17,8 @@ screen = pygame.display.set_mode((400, 300))
 #screen = pygame.display.set_mode((400, 300))
 
 class Fruit():
-    def __init__(self, snake_position):
-        self.position = snake_position
+    def __init__(self, fruit_position):
+        self.position = fruit_position
 
     def draw_fruit(self):
         for i in range(len(self.position)):
