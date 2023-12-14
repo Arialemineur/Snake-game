@@ -61,28 +61,28 @@ class Snake():
 
     def eats_fruit(self):
         X = (self.position[len(self.position)-2][0]-self.position[len(self.position)-1][0],self.position[len(self.position)-2][0]-self.position[len(self.position)-1][1])
-        L = self.position
-        L.append((self.position[len(self.position)-1][0]+X[0],self.position[len(self.position)-1][1]+X[1]))
+        snake_position = self.position
+        snake_position.append((self.position[len(self.position)-1][0]+X[0],self.position[len(self.position)-1][1]+X[1]))
         self.position = L
         self.draw_snake()
 
     def goes_right(self):
-        L = self.position
-        n= len(L)
-        T=L.copy()
-        T[0] = (L[0][0]+1, L[0][1])
-        for i in range(1,n):
-            T[i]=L[i-1]
+        snake_position = self.position
+        lengh_snake = len(snake_position)
+        T = snake_position.copy()
+        T[0] = (snake_position[0][0]+1, snake_position[0][1])
+        for i in range(1,lengh_snake):
+            T[i]=snake_position[i-1]
         self.position = T
         self.draw_snake()
 
     def goes_left(self):
-        L = self.position
-        n= len(L)
-        T=L.copy()
-        T[0] = (L[0][0]-1, L[0][1])
-        for i in range(1,n):
-            T[i] = L[i-1]
+        snake_position = self.position
+        lengh_snake = len(snake_position)
+        T = snake_position.copy()
+        T[0] = (snake_position[0][0]-1, snake_position[0][1])
+        for i in range(1,lengh_snake):
+            T[i] = snake_position[i-1]
         self.position = T
         self.draw_snake()
 
@@ -97,7 +97,7 @@ class Snake():
 
 def game():
     clock = pygame.time.Clock()
-    L = Snake([[7, 10],[6, 10],[5, 10]])
+    snake_position = Snake([[7, 10],[6, 10],[5, 10]])
     loc = Fruit([3,3])
     score = 0
     last_input = pygame.K_RIGHT
@@ -116,20 +116,20 @@ def game():
             if last_input == pygame.K_ESCAPE:
                 pygame.quit()
             if last_input == pygame.K_UP and last_move != pygame.K_DOWN :
-                L.goes_up()
+                snake_position.goes_up()
             if last_input == pygame.K_DOWN and last_move != pygame.K_UP:
-                L.goes_down()
+                snake_position.goes_down()
             if last_input == pygame.K_LEFT and last_move != pygame.K_RIGHT:
-                L.goes_left()
+                snake_position.goes_left()
             if last_input == pygame.K_RIGHT and last_move != pygame.K_LEFT:
-                L.goes_right()
+                snake_position.goes_right()
             last_move = last_input
-            if L.position[0] == loc:
-                L.eats_fruit()
+            if snake_position.position[0] == loc:
+                snake_position.eats_fruit()
                 loc.spawn_fruit(L)
                 loc.draw_fruit()
                 score += 1
-            if L.position[0] in L.position[1:]:
+            if snake_position.position[0] in snake_position.position[1:]:
                 pygame.quit()
         pygame.display.update()
 
