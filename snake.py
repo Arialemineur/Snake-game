@@ -10,7 +10,6 @@ blue = (0, 0, 255)
 pygame.init()
 
 screen = pygame.display.set_mode((400, 300))
-pygame.draw.rect(screen, red, (50, 100, 100, 50))
 
 
 #pygame.init()
@@ -113,11 +112,10 @@ def game():
 
     while True:
 
-        clock.tick(0.5)
+        clock.tick(0.2)
 
         for event in pygame.event.get():
             screen = pygame.display.set_mode((400, 300))
-            pygame.draw.rect(screen, red, (50, 100, 100, 50))
             if event.type == pygame.KEYDOWN:
                 last_input = event.key
             if last_input == pygame.K_ESCAPE:
